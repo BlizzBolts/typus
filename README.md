@@ -1,29 +1,22 @@
-**💛 You can help the author become a full-time open-source maintainer by [sponsoring him on GitHub](https://github.com/sponsors/egoist).**
+# Typus
 
----
+> `Typus === Latin('type')`
 
-# my-ts-lib
+## Introduction
 
-[![npm version](https://badgen.net/npm/v/my-ts-lib)](https://npm.im/my-ts-lib)
+Typus is a complete TypeScript type parser.
 
-## Using this template
 
-- Search `my-ts-lib` and replace it with your custom package name.
-- Search `egoist` and replace it with your name.
+## RoadMap
 
-Features:
 
-- Package manager [pnpm](https://pnpm.js.org/), safe and fast
-- Release with [semantic-release](https://npm.im/semantic-release)
-- Bundle with [tsup](https://github.com/egoist/tsup)
-- Test with [jest](https://jestjs.io/)
+## Inspirations
 
-## Install
+I'm working on a document product which need API parsing for React Component and other TypeScript declarations.
 
-```bash
-npm i my-ts-lib
-```
+[react-docgen-typescript](https://github.com/styleguidist/react-docgen-typescript) can not handle normal TypeScript functions well.
 
-## License
+So I made my own.
 
-MIT &copy; [EGOIST](https://github.com/sponsors/egoist)
+
+
