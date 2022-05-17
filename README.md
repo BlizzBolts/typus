@@ -19,4 +19,6 @@ I'm working on a document product which need API parsing for React Component and
 So I made my own.
 
 
+## Notes
 
+Compiling Ts using https://github.com/microsoft/TypeScript/wiki/Using-the-Compiler-API#using-the-type-checker
