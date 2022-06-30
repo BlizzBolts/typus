@@ -4,11 +4,7 @@
   "description": "My awesome typescript library",
   "author": {
     "name": "phshy0607",
-    "email": "phshy0607@126.com"
-  },
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org",
-    "access": "public"
+    "email": "phshy0607@outlook.com"
   },
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -24,12 +20,17 @@
     "test": "vitest run",
     "prepublishOnly": "pnpm run build"
   },
-  "license": "MIT",
   "devDependencies": {
     "@egoist/prettier-config": "1.0.0",
-    "prettier": "2.5.1",
-    "tsup": "5.11.13",
-    "typescript": "4.5.4",
-    "vitest": "0.2.5"
+    "prettier": "^2.7.1",
+    "tsup": "^6.1.2",
+    "vitest": "0.16.0",
+    "typescript": "^4.6.3"
+  },
+  "license": "MIT",
+  "prettier": "@egoist/prettier-config",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org",
+    "access": "public"
   }
 }
