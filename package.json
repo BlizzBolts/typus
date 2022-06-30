@@ -4,11 +4,7 @@
   "version": "0.1.0",
   "author": {
     "name": "phshy0607",
-    "email": "phshy0607@126.com"
-  },
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org",
-    "access": "public"
+    "email": "phshy0607@outlook.com"
   },
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -24,7 +20,6 @@
     "test": "vitest run",
     "prepublishOnly": "pnpm run build"
   },
-  "license": "MIT",
   "devDependencies": {
     "@egoist/prettier-config": "1.0.0",
     "@types/fs-extra": "^9.0.13",
@@ -38,5 +33,11 @@
     "fs-extra": "^10.1.0",
     "typescript": "^4.6.3",
     "lodash-es": "^4.17.21"
+  },
+  "license": "MIT",
+  "prettier": "@egoist/prettier-config",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org",
+    "access": "public"
   }
 }
