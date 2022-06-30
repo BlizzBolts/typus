@@ -14,19 +14,19 @@ class TypusCompiler {
   private filePaths: string | string[]
   private program: ts.Program
   private typeChecker: ts.TypeChecker
-  private targetMember?: string
+  // private targetMember?: string
   private docCache: DocCache
 
   constructor(
     filePaths: string | string[],
     compilerOptions: Partial<ts.CompilerOptions>,
-    targetMember?: string,
+    // targetMember?: string,
   ) {
     this.compilerOptions = merge(compilerOptions, defaultCompilerOptions)
     this.filePaths = Array.isArray(filePaths) ? filePaths : [filePaths]
     this.program = ts.createProgram(this.filePaths, this.compilerOptions)
     this.typeChecker = this.program.getTypeChecker()
-    this.targetMember = targetMember
+    // this.targetMember = targetMember
     this.docCache = new DocCache()
   }
 

@@ -1,22 +1,30 @@
-lockfileVersion: 5.3
+lockfileVersion: 5.4
 
 specifiers:
   '@egoist/prettier-config': 1.0.0
   '@types/fs-extra': ^9.0.13
+  '@types/lodash': ^4.14.182
+  '@types/lodash-es': ^4.17.6
   fs-extra: ^10.1.0
-  prettier: 2.5.1
-  tsup: 5.11.13
-  typescript: 4.5.4
-  vitest: 0.2.5
+  lodash-es: ^4.17.21
+  prettier: ^2.7.1
+  tsup: ^6.1.2
+  typescript: ^4.6.3
+  vitest: 0.16.0
+
+dependencies:
+  fs-extra: 10.1.0
+  lodash-es: 4.17.21
+  typescript: 4.7.4
 
 devDependencies:
   '@egoist/prettier-config': 1.0.0
   '@types/fs-extra': 9.0.13
-  fs-extra: 10.1.0
-  prettier: 2.5.1
-  tsup: 5.11.13_typescript@4.5.4
-  typescript: 4.5.4
-  vitest: 0.2.5
+  '@types/lodash': 4.14.182
+  '@types/lodash-es': 4.17.6
+  prettier: 2.7.1
+  tsup: 6.1.2_typescript@4.7.4
+  vitest: 0.16.0
 
 packages:
 
@@ -59,6 +67,16 @@ packages:
     resolution: {integrity: sha1-dZT7rgT+fxkYzos9IT90/0SsH0U=, tarball: '@types/fs-extra/download/@types/fs-extra-9.0.13.tgz'}
     dependencies:
       '@types/node': 18.0.0
+    dev: true
+
+  /@types/lodash-es/4.17.6:
+    resolution: {integrity: sha512-R+zTeVUKDdfoRxpAryaQNRKk3105Rrgx2CFRClIgRGaqDTdjsm8h6IYA8ir584W3ePzkZfst5xIgDwYrlh9HLg==, tarball: '@types/lodash-es/download/@types/lodash-es-4.17.6.tgz'}
+    dependencies:
+      '@types/lodash': 4.14.182
+    dev: true
+
+  /@types/lodash/4.14.182:
+    resolution: {integrity: sha512-/THyiqyQAP9AfARo4pF+aCGcyiQ94tX/Is2I7HofNRqoYLgN1PBoOWu2/zTA5zMxzP5EFutMtWtGAFRKUe961Q==, tarball: '@types/lodash/download/@types/lodash-4.14.182.tgz'}
     dev: true
 
   /@types/node/18.0.0:
@@ -454,7 +472,7 @@ packages:
       graceful-fs: 4.2.10
       jsonfile: 6.1.0
       universalify: 2.0.0
-    dev: true
+    dev: false
 
   /fs.realpath/1.0.0:
     resolution: {integrity: sha1-FQStJSMVjKpA20onh8sBQRmU6k8=, tarball: fs.realpath/download/fs.realpath-1.0.0.tgz}
@@ -513,7 +531,7 @@ packages:
 
   /graceful-fs/4.2.10:
     resolution: {integrity: sha512-9ByhssR2fPVsNZj478qUUbKfmL0+t5BDVyjShtyZZLiK7ZDAArFFfopyOTj0M05wE2tJPisA4iTnnXl2YoPvOA==, tarball: graceful-fs/download/graceful-fs-4.2.10.tgz}
-    dev: true
+    dev: false
 
   /has/1.0.3:
     resolution: {integrity: sha1-ci18v8H2qoJB8W3YFOAR4fQeh5Y=, tarball: has/download/has-1.0.3.tgz}
@@ -593,7 +611,7 @@ packages:
       universalify: 2.0.0
     optionalDependencies:
       graceful-fs: 4.2.10
-    dev: true
+    dev: false
 
   /lilconfig/2.0.5:
     resolution: {integrity: sha512-xaYmXZtTHPAw5m+xLN8ab9C+3a8YmV3asNSPOATITbtwrfbwaLJj8h66H1WMIpALCkqsIzK3h7oQ+PdX+LQ9Eg==, tarball: lilconfig/download/lilconfig-2.0.5.tgz}
@@ -612,6 +630,14 @@ packages:
   /local-pkg/0.4.1:
     resolution: {integrity: sha512-lL87ytIGP2FU5PWwNDo0w3WhIo2gopIAxPg9RxDYF7m4rr5ahuZxP22xnJHIvaLTe4Z9P6uKKY2UHiwyB4pcrw==, tarball: local-pkg/download/local-pkg-0.4.1.tgz}
     engines: {node: '>=14'}
+    dev: true
+
+  /lodash-es/4.17.21:
+    resolution: {integrity: sha1-Q+YmxG5lkbd1C+srUBFzkMYJ4+4=, tarball: lodash-es/download/lodash-es-4.17.21.tgz}
+    dev: false
+
+  /lodash.sortby/4.7.0:
+    resolution: {integrity: sha1-7dFMgk4sycHgsKG0K7UhBRakJDg=, tarball: lodash.sortby/download/lodash.sortby-4.7.0.tgz}
     dev: true
 
   /loupe/2.3.4:
@@ -758,10 +784,15 @@ packages:
       source-map-js: 1.0.2
     dev: true
 
-  /prettier/2.5.1:
-    resolution: {integrity: sha512-vBZcPRUR5MZJwoyi3ZoyQlc1rXeEck8KgeC9AwwOn+exuxLxq5toTRDTSaVrXHxelDMHy9zlicw8u66yxoSUFg==, tarball: prettier/download/prettier-2.5.1.tgz}
+  /prettier/2.7.1:
+    resolution: {integrity: sha512-ujppO+MkdPqoVINuDFDRLClm7D78qbDt0/NR+wp5FqEZOoTNAjPHWj17QRhu7geIHJfcNhRk1XVQmF8Bp3ye+g==, tarball: prettier/download/prettier-2.7.1.tgz}
     engines: {node: '>=10.13.0'}
     hasBin: true
+    dev: true
+
+  /punycode/2.1.1:
+    resolution: {integrity: sha1-tYsBCsQMIsVldhbI0sLALHv0eew=, tarball: punycode/download/punycode-2.1.1.tgz}
+    engines: {node: '>=6'}
     dev: true
 
   /queue-microtask/1.2.3:
@@ -834,9 +865,11 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
-  /source-map/0.7.4:
-    resolution: {integrity: sha512-l3BikUxvPOcn5E74dZiq5BGsTb5yEwhaTSzccU6t4sDOH8NWJCstKO5QT2CvtFoK6F0saL7p9xHAqHOlCPJygA==, tarball: source-map/download/source-map-0.7.4.tgz}
+  /source-map/0.8.0-beta.0:
+    resolution: {integrity: sha1-1MG7QsP37pJfAFknuhBwng0dHxE=, tarball: source-map/download/source-map-0.8.0-beta.0.tgz}
     engines: {node: '>= 8'}
+    dependencies:
+      whatwg-url: 7.1.0
     dev: true
 
   /strip-final-newline/2.0.0:
@@ -875,13 +908,13 @@ packages:
       any-promise: 1.3.0
     dev: true
 
-  /tinypool/0.1.3:
-    resolution: {integrity: sha512-2IfcQh7CP46XGWGGbdyO4pjcKqsmVqFAPcXfPxcPXmOWt9cYkTP9HcDmGgsfijYoAEc4z9qcpM/BaBz46Y9/CQ==, tarball: tinypool/download/tinypool-0.1.3.tgz}
+  /tinypool/0.2.1:
+    resolution: {integrity: sha512-HFU5ZYVq3wBfhSaf8qdqGsneaqXm0FgJQpoUlJbVdHpRLzm77IneKAD3RjzJWZvIv0YpPB9S7LUW53f6BE6ZSg==, tarball: tinypool/download/tinypool-0.2.1.tgz}
     engines: {node: '>=14.0.0'}
     dev: true
 
-  /tinyspy/0.2.10:
-    resolution: {integrity: sha512-Qij6rGWCDjWIejxCXXVi6bNgvrYBp3PbqC4cBP/0fD6WHDOHCw09Zd13CsxrDqSR5PFq01WeqDws8t5lz5sH0A==, tarball: tinyspy/download/tinyspy-0.2.10.tgz}
+  /tinyspy/0.3.3:
+    resolution: {integrity: sha512-gRiUR8fuhUf0W9lzojPf1N1euJYA30ISebSfgca8z76FOvXtVXqd5ojEIaKLWbDQhAaC3ibxZIjqbyi4ybjcTw==, tarball: tinyspy/download/tinyspy-0.3.3.tgz}
     engines: {node: '>=14.0.0'}
     dev: true
 
@@ -890,6 +923,12 @@ packages:
     engines: {node: '>=8.0'}
     dependencies:
       is-number: 7.0.0
+    dev: true
+
+  /tr46/1.0.1:
+    resolution: {integrity: sha1-qLE/1r/SSJUZZ0zN5VujaTtwbQk=, tarball: tr46/download/tr46-1.0.1.tgz}
+    dependencies:
+      punycode: 2.1.1
     dev: true
 
   /tree-kill/1.2.2:
@@ -901,12 +940,19 @@ packages:
     resolution: {integrity: sha1-eE/T1nlyK8EDsbS4AwvN212yppk=, tarball: ts-interface-checker/download/ts-interface-checker-0.1.13.tgz}
     dev: true
 
-  /tsup/5.11.13_typescript@4.5.4:
-    resolution: {integrity: sha512-NVMK01gVmojZn7+iZwxRK1CzW2BIabaVMyEjs7Nm9lm4DrSf7IAqs2F3fg0vT7rH72x1cIBsW9U/TlWrCvHVQQ==, tarball: tsup/download/tsup-5.11.13.tgz}
+  /tsup/6.1.2_typescript@4.7.4:
+    resolution: {integrity: sha512-Hw4hKDHaAQkm2eVavlArEOrAPA93bziRDamdfwaNs0vXQdUUFfItvUWY0L/F6oQQMVh6GvjQq1+HpDXw8UKtPA==, tarball: tsup/download/tsup-6.1.2.tgz}
+    engines: {node: '>=14'}
     hasBin: true
     peerDependencies:
+      '@swc/core': ^1
+      postcss: ^8.4.12
       typescript: ^4.1.0
     peerDependenciesMeta:
+      '@swc/core':
+        optional: true
+      postcss:
+        optional: true
       typescript:
         optional: true
     dependencies:
@@ -921,12 +967,11 @@ packages:
       postcss-load-config: 3.1.4
       resolve-from: 5.0.0
       rollup: 2.75.7
-      source-map: 0.7.4
+      source-map: 0.8.0-beta.0
       sucrase: 3.21.1
       tree-kill: 1.2.2
-      typescript: 4.5.4
+      typescript: 4.7.4
     transitivePeerDependencies:
-      - postcss
       - supports-color
       - ts-node
     dev: true
@@ -936,16 +981,15 @@ packages:
     engines: {node: '>=4'}
     dev: true
 
-  /typescript/4.5.4:
-    resolution: {integrity: sha512-VgYs2A2QIRuGphtzFV7aQJduJ2gyfTljngLzjpfW9FoYZF6xuw1W0vW9ghCKLfcWrCFxK81CSGRAvS1pn4fIUg==, tarball: typescript/download/typescript-4.5.4.tgz}
+  /typescript/4.7.4:
+    resolution: {integrity: sha512-C0WQT0gezHuw6AdY1M2jxUO83Rjf0HP7Sk1DtXj6j1EwkQNZrHAg2XPWlq62oqEhYvONq5pkC2Y9oPljWToLmQ==, tarball: typescript/download/typescript-4.7.4.tgz}
     engines: {node: '>=4.2.0'}
     hasBin: true
-    dev: true
 
   /universalify/2.0.0:
     resolution: {integrity: sha1-daSYTv7cSwiXXFrrc/Uw0C3yVxc=, tarball: universalify/download/universalify-2.0.0.tgz}
     engines: {node: '>= 10.0.0'}
-    dev: true
+    dev: false
 
   /vite/2.9.12:
     resolution: {integrity: sha512-suxC36dQo9Rq1qMB2qiRorNJtJAdxguu5TMvBHOc/F370KvqAe9t48vYp+/TbPKRNrMh/J55tOUmkuIqstZaew==, tarball: vite/download/vite-2.9.12.tgz}
@@ -971,9 +1015,9 @@ packages:
       fsevents: 2.3.2
     dev: true
 
-  /vitest/0.2.5:
-    resolution: {integrity: sha512-QruEhsNxy8ycLxYG9rrGUfHZzJ8A6YvA9ULZ4w/ecvm0Zejm1nxUar/XkRWkL2xzrqA5AjmfqDSQZ8q2bFbA0Q==, tarball: vitest/download/vitest-0.2.5.tgz}
-    engines: {node: '>=14.14.0'}
+  /vitest/0.16.0:
+    resolution: {integrity: sha512-Ntp6jrM8wf2NMtamMBLkRBBdeqHkgAH/WMh5Xryts1j2ft2D8QZQbiSVFkSl4WmEQzcPP0YM069g/Ga1vtnEtg==, tarball: vitest/download/vitest-0.16.0.tgz}
+    engines: {node: '>=v14.16.0'}
     hasBin: true
     peerDependencies:
       '@vitest/ui': '*'
@@ -992,15 +1036,30 @@ packages:
     dependencies:
       '@types/chai': 4.3.1
       '@types/chai-subset': 1.3.3
+      '@types/node': 18.0.0
       chai: 4.3.6
+      debug: 4.3.4
       local-pkg: 0.4.1
-      tinypool: 0.1.3
-      tinyspy: 0.2.10
+      tinypool: 0.2.1
+      tinyspy: 0.3.3
       vite: 2.9.12
     transitivePeerDependencies:
       - less
       - sass
       - stylus
+      - supports-color
+    dev: true
+
+  /webidl-conversions/4.0.2:
+    resolution: {integrity: sha1-qFWYCx8LazWbodXZ+zmulB+qY60=, tarball: webidl-conversions/download/webidl-conversions-4.0.2.tgz}
+    dev: true
+
+  /whatwg-url/7.1.0:
+    resolution: {integrity: sha1-wsSS8eymEpiO/T0iZr4bn8YXDQY=, tarball: whatwg-url/download/whatwg-url-7.1.0.tgz}
+    dependencies:
+      lodash.sortby: 4.7.0
+      tr46: 1.0.1
+      webidl-conversions: 4.0.2
     dev: true
 
   /which/2.0.2:
