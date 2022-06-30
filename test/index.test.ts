@@ -1,6 +1,13 @@
-import { test, assert } from "vitest"
-import { foo } from "../dist"
+import { it, expect, suite } from "vitest"
+import { parse } from "../src"
+import path from "path"
 
-test("simple", () => {
-  assert.equal(foo, "foo")
+const rawTsSampleFilePath = path.resolve(__dirname, "./sample/raw-ts.ts")
+
+suite("simple", () => {
+  it("parse", () => {
+    const docCache = parse(rawTsSampleFilePath)
+
+    expect(docCache).toBeTruthy()
+  })
 })

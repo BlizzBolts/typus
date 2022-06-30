@@ -22,3 +22,10 @@ So I made my own.
 ## Notes
 
 Compiling Ts using https://github.com/microsoft/TypeScript/wiki/Using-the-Compiler-API#using-the-type-checker
+
+TypeScript AST Explorer: https://ts-ast-viewer.com/#
+
+TypeScript Compiler Notes: https://github.com/microsoft/TypeScript-Compiler-Notes
+
+TypeScript Deep Dive: https://basarat.gitbook.io/typescript/
+
