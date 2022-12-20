@@ -6,33 +6,33 @@
     "name": "phshy0607",
     "email": "phshy0607@outlook.com"
   },
-  "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
   "exports": {
-    "require": "./dist/index.js",
-    "import": "./dist/index.mjs"
+    "require": "./dist/index.cjs",
+    "import": "./dist/index.js"
   },
   "types": "./dist/index.d.ts",
   "scripts": {
-    "dev": "pnpm run build-fast -- --watch",
+    "dev": "pnpm run build-fast --watch",
     "build-fast": "tsup src/index.ts --format cjs,esm",
-    "build": "pnpm run build-fast -- --dts-resolve",
+    "build": "pnpm run build-fast --dts-resolve",
     "test": "vitest run",
     "prepublishOnly": "pnpm run build"
   },
   "devDependencies": {
-    "@egoist/prettier-config": "1.0.0",
+    "typescript": "^4.5.4",
     "@types/fs-extra": "^9.0.13",
-    "@types/lodash": "^4.14.182",
-    "@types/lodash-es": "^4.17.6",
-    "prettier": "^2.7.1",
-    "tsup": "^6.1.2",
-    "vitest": "0.16.0"
+    "@types/lodash": "^4.14.191",
+    "tsup": "^6.5.0",
+    "vitest": "0.25.8"
   },
   "dependencies": {
-    "fs-extra": "^10.1.0",
-    "typescript": "^4.6.3",
-    "lodash-es": "^4.17.21"
+    "fs-extra": "^11.1.0"
+  },
+  "peerDependencies": {
+    "typescript": "4.x"
   },
   "license": "MIT",
   "prettier": "@egoist/prettier-config",

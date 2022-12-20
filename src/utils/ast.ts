@@ -1,6 +1,4 @@
 import ts from "typescript"
-import { DocEntry } from "../types"
-import { serializeSymbol } from "./doc"
 
 export function isNodeExported(node: ts.Node): boolean {
   return (
