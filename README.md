@@ -8,7 +8,7 @@ Typus is a complete TypeScript type parser.
 
 
 ## RoadMap
-
+???
 
 ## Inspirations
 
@@ -22,3 +22,4 @@ So I made my own.
 ## Notes
 
 Compiling Ts using https://github.com/microsoft/TypeScript/wiki/Using-the-Compiler-API#using-the-type-checker
+Ts Notes: https://github.com/microsoft/TypeScript-Compiler-Notes
