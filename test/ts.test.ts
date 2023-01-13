@@ -3,7 +3,7 @@ import path from "path"
 import ts from "typescript"
 import { serializeSymbol } from "../src/utils/doc"
 
-const rawTsSampleFilePath = path.resolve(__dirname, "./sample/raw-ts.ts")
+const rawTsSampleFilePath = path.resolve(__dirname, "./manifest/raw-ts.ts")
 
 function printRecursiveFrom(
   node: ts.Node,
@@ -29,7 +29,7 @@ function printNode(node: ts.Node) {
 }
 
 suite("ts test", () => {
-  it("parse", () => {
+  it("raw parse", () => {
     const program = ts.createProgram([rawTsSampleFilePath], {
       target: ts.ScriptTarget.ES5,
       module: ts.ModuleKind.CommonJS,

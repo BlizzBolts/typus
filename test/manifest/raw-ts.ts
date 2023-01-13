@@ -1,5 +1,4 @@
 import { FSWatcher } from "fs-extra"
-import { Param as AnotherParam } from "./interface"
 
 /**
  * this is a Param
@@ -43,9 +42,4 @@ export interface ParamTTT {
    * look a FsWatcher
    */
   a: FSWatcher
-
-  /**
-   * a param from imported file
-   */
-  b: AnotherParam
 }
