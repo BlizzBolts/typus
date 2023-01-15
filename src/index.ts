@@ -6,6 +6,6 @@ export const parse = (
   filePaths: string | string[],
   compilerOptions: ts.CompilerOptions = defaultCompilerOptions
 ): Doc => {
-  const compiler = new Parser(filePaths, compilerOptions);
-  return compiler.parse();
+  const parser = new Parser(filePaths, compilerOptions);
+  return parser.parse();
 };

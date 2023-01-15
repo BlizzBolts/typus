@@ -1,5 +1,5 @@
-import ts from "typescript"
-import type { DocEntry } from "../types"
+import ts from "typescript";
+import { Doc } from "../core/doc";
 
 // export const getInterfaceDocuments = (
 //   node: ts.Node,
@@ -26,30 +26,29 @@ import type { DocEntry } from "../types"
 
 export const serializeSymbol = (
   symbol: ts.Symbol,
-  checker: ts.TypeChecker,
-): DocEntry => {
-  return {
+  checker: ts.TypeChecker
+): Doc => {
+  return new Doc({
     name: symbol?.getName(),
     documentation: ts.displayPartsToString(
-      symbol?.getDocumentationComment(checker),
+      symbol?.getDocumentationComment(checker)
     ),
     symbolType: checker.getTypeOfSymbolAtLocation(
       symbol,
-      symbol?.valueDeclaration!,
+      symbol?.valueDeclaration!
     ),
     type: checker.typeToString(
-      checker.getTypeOfSymbolAtLocation(symbol, symbol?.valueDeclaration!),
+      checker.getTypeOfSymbolAtLocation(symbol, symbol?.valueDeclaration!)
     ),
     tags: symbol?.getJsDocTags(checker).map((o) => {
       return {
         name: o.name,
         text: ts.displayPartsToString(o.text),
-      }
+      };
     }),
     children: [],
     members: [],
     parameters: [],
-    // @ts-ignore
-    required: symbol?.["questionToken"],
-  }
-}
+    // required: symbol?.["questionToken"],
+  });
+};

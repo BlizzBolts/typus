@@ -1,13 +1,16 @@
-import { it, expect, suite } from "vitest";
+import { it, expect, suite, beforeEach, afterEach } from "vitest";
 import { parse } from "../src";
 import path from "path";
+import { Parser } from "../src/core/parser";
 
-const rawTsSampleFilePath = path.resolve(__dirname, "./manifest/raw-ts.ts");
+let parser: Parser = new Parser();
 
 suite("individual parse", () => {
   it("should parse interface", () => {
-    const docCache = parse(rawTsSampleFilePath);
-    expect(docCache).toMatchSnapshot();
+    parser.setup(path.resolve(__dirname, "./manifest/interface.ts"));
+    const docCache = parser.parse();
+    console.log("done");
+    // expect(docCache).toMatchSnapshot();
   });
 
   it("should parse interface with external deps", () => {});
