@@ -54,84 +54,131 @@ export class Parser {
     return rootDoc;
   }
 
-  parseInterface(node: ts.InterfaceDeclaration, parent: Doc) {
-    const interfaceType = this.typeChecker.getTypeAtLocation(node.name);
-    const Doc = serializeSymbol(interfaceType.getSymbol()!, this.typeChecker);
-    parent.children?.push(Doc);
-    this.cache.set(interfaceType, Doc);
+  parseInterfaceDeclaration(node: ts.InterfaceDeclaration, parent: Doc) {
+    const type = this.typeChecker.getTypeAtLocation(node.name);
+    const doc = serializeSymbol(type.getSymbol()!, this.typeChecker);
+    parent.children?.push(doc);
 
     if (Array.isArray(node.members)) {
       node.members.forEach((memberNode) => {
-        this.traverse(memberNode, Doc);
+        this.traverse(memberNode, doc);
       });
     }
   }
 
-  parseFunction(node: ts.FunctionDeclaration, parent: Doc) {
-    const fnType = this.typeChecker.getTypeAtLocation(node);
-    const Doc = serializeSymbol(fnType.getSymbol()!, this.typeChecker);
-    parent.children?.push(Doc);
-    this.cache.set(fnType, Doc);
+  parseMethodSignature(node: ts.MethodSignature, parent: Doc) {
+    const symbol = this.typeChecker.getSymbolAtLocation(node.name!);
+    const doc = serializeSymbol(symbol!, this.typeChecker);
+    parent.children?.push(doc);
 
     if (Array.isArray(node.parameters)) {
-      node.parameters.forEach((parameter) => this.traverse(parameter, Doc));
+      node.parameters.forEach((parameter) => this.traverse(parameter, doc));
     }
   }
 
-  parseFunctionParameter = (node: ts.ParameterDeclaration, parent: Doc) => {
-    const parameterType = this.typeChecker.getTypeAtLocation(node.name);
-    if (this.cache.has(parameterType)) {
-      parent.parameters?.push(this.cache.get(parameterType)!);
-    } else {
-      const symbol = this.typeChecker.getSymbolAtLocation(node.name!);
-      parent.parameters?.push(serializeSymbol(symbol!, this.typeChecker));
-    }
+  parseParameter = (node: ts.ParameterDeclaration, parent: Doc) => {
+    const symbol = this.typeChecker.getSymbolAtLocation(node.name!);
+    const doc = serializeSymbol(symbol!, this.typeChecker);
+    parent.parameters?.push(doc);
   };
 
-  parseInterfaceMember = (node: ts.TypeElement, parent: Doc) => {
-    const memberType = this.typeChecker.getTypeAtLocation(node!.name!);
+  parsePropertySignature = (node: ts.PropertySignature, parent: Doc) => {
+    const symbol = this.typeChecker.getSymbolAtLocation(node.name!);
+    const doc = serializeSymbol(symbol!, this.typeChecker);
+    parent.children?.push(doc);
 
-    if (this.cache.has(memberType)) {
-      parent.members?.push(this.cache.get(memberType)!);
-    } else {
-      const symbol = this.typeChecker.getSymbolAtLocation(node.name!);
-      parent.members?.push(serializeSymbol(symbol!, this.typeChecker));
+    if (node.type && ts.isFunctionTypeNode(node.type)) {
+      node.type.parameters.forEach((parameter) =>
+        this.traverse(parameter, doc)
+      );
     }
+
+    // if (node.type && ts.isTypeReferenceNode(node.type)) {
+    //   node.type.parameters.forEach((parameter) =>
+    //     this.traverse(parameter, doc)
+    //   );
+    // }
   };
+
+  // parseFunction(node: ts.FunctionDeclaration, parent: Doc) {
+  //   const fnType = this.typeChecker.getTypeAtLocation(node);
+  //   const Doc = serializeSymbol(fnType.getSymbol()!, this.typeChecker);
+  //   parent.children?.push(Doc);
+  //   this.cache.set(fnType, Doc);
+
+  //   if (Array.isArray(node.parameters)) {
+  //     node.parameters.forEach((parameter) => this.traverse(parameter, Doc));
+  //   }
+  // }
+
+  // parseInterfaceMember = (node: ts.TypeElement, parent: Doc) => {
+  //   const memberType = this.typeChecker.getTypeAtLocation(node!.name!);
+
+  //   if (this.cache.has(memberType)) {
+  //     parent.members?.push(this.cache.get(memberType)!);
+  //   } else {
+  //     const symbol = this.typeChecker.getSymbolAtLocation(node.name!);
+  //     parent.members?.push(serializeSymbol(symbol!, this.typeChecker));
+  //   }
+  // };
 
   traverse(node: ts.Node, parent: Doc) {
-    if (ts.isTypeElement(node)) {
-      this.parseInterfaceMember(node, parent);
-    }
-    if (ts.isVariableDeclaration(node)) {
-      console.log("isVariableDeclaration!");
-    }
-    if (ts.isVariableDeclaration(node)) {
-      console.log("isVariableDeclaration");
-    }
-    if (ts.isVariableDeclarationList(node)) {
-      console.log("isVariableDeclarationList");
-    }
-    if (ts.isFunctionDeclaration(node)) {
-      this.parseFunction(node, parent);
-    }
-    if (ts.isParameter(node)) {
-      this.parseFunctionParameter(node, parent);
-    }
-    if (ts.isClassDeclaration(node)) {
-      console.log("isClassDeclaration");
-    }
     if (ts.isInterfaceDeclaration(node)) {
-      this.parseInterface(node, parent);
+      console.log("isInterfaceDeclaration!");
+      this.parseInterfaceDeclaration(node, parent);
+      return;
     }
-    if (ts.isTypeAliasDeclaration(node)) {
-      console.log("isTypeAliasDeclaration");
+
+    if (ts.isMethodSignature(node)) {
+      console.log("isMethodSignature!");
+      this.parseMethodSignature(node, parent);
+      return;
     }
-    if (ts.isEnumDeclaration(node)) {
-      console.log("isEnumDeclaration");
+
+    if (ts.isPropertySignature(node)) {
+      console.log("isPropertySignature!");
+      this.parsePropertySignature(node, parent);
+      return;
     }
-    if (ts.isModuleDeclaration(node)) {
-      console.log("isModuleDeclaration");
+
+    if (ts.isParameter(node)) {
+      console.log("isParameter!");
+      this.parseParameter(node, parent);
+      return;
     }
+
+    // if (ts.isVariableDeclaration(node)) {
+    //   console.log("isVariableDeclaration!");
+    //   return;
+    // }
+
+    // if (ts.isFunctionDeclaration(node)) {
+    //   console.log("isFunctionDeclaration!");
+    //   this.parseFunction(node, parent);
+    //   return;
+    // }
+
+    // if (ts.isClassDeclaration(node)) {
+    //   console.log("isClassDeclaration");
+    //   return;
+    // }
+    // if (ts.isTypeAliasDeclaration(node)) {
+    //   console.log("isTypeAliasDeclaration");
+    //   return;
+    // }
+    // if (ts.isEnumDeclaration(node)) {
+    //   console.log("isEnumDeclaration");
+    //   return;
+    // }
+    // if (ts.isModuleDeclaration(node)) {
+    //   console.log("isModuleDeclaration");
+    //   return;
+    // }
+
+    // if (ts.isTypeElement(node)) {
+    //   console.log("isTypeElement!");
+    //   this.parseInterfaceMember(node, parent);
+    //   return;
+    // }
   }
 }

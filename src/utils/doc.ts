@@ -33,10 +33,10 @@ export const serializeSymbol = (
     documentation: ts.displayPartsToString(
       symbol?.getDocumentationComment(checker)
     ),
-    symbolType: checker.getTypeOfSymbolAtLocation(
-      symbol,
-      symbol?.valueDeclaration!
-    ),
+    // symbolType: checker.getTypeOfSymbolAtLocation(
+    //   symbol,
+    //   symbol?.valueDeclaration!
+    // ),
     type: checker.typeToString(
       checker.getTypeOfSymbolAtLocation(symbol, symbol?.valueDeclaration!)
     ),

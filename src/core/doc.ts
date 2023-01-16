@@ -20,7 +20,7 @@ export class Doc {
   members?: Doc[];
   parameters?: Doc[];
   children?: Doc[];
-  symbolType?: ts.Type;
+  // symbolType?: ts.Type;
 
   constructor(param: SerialziedDoc = {}) {
     this.name = param.name || "";
@@ -31,7 +31,7 @@ export class Doc {
     this.members = param.members || [];
     this.parameters = param.parameters || [];
     this.children = param.children || [];
-    this.symbolType = param.symbolType || (null as unknown as ts.Type);
+    // this.symbolType = param.symbolType || (null as unknown as ts.Type);
   }
 
   serialize(): SerialziedDoc {
@@ -44,7 +44,7 @@ export class Doc {
       members: this.members,
       parameters: this.parameters,
       children: this.children,
-      symbolType: this.symbolType,
+      // symbolType: this.symbolType,
     };
   }
 }

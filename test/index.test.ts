@@ -1,5 +1,4 @@
 import { it, expect, suite, beforeEach, afterEach } from "vitest";
-import { parse } from "../src";
 import path from "path";
 import { Parser } from "../src/core/parser";
 

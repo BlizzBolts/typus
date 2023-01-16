@@ -6,9 +6,7 @@
 
 Typus is a complete TypeScript type parser.
 
-
 ## RoadMap
-
 
 ## Inspirations
 
@@ -18,6 +16,10 @@ I'm working on a document product which need API parsing for React Component and
 
 So I made my own.
 
+## Type Coverages
+
+- interface method
+- interface property: function and variables
 
 ## Notes
 
@@ -28,4 +30,3 @@ TypeScript AST Explorer: https://ts-ast-viewer.com/#
 TypeScript Compiler Notes: https://github.com/microsoft/TypeScript-Compiler-Notes
 
 TypeScript Deep Dive: https://basarat.gitbook.io/typescript/
-

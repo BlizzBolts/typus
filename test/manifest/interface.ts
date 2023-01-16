@@ -12,4 +12,19 @@ export interface Statistics {
    * @beta
    */
   getAverage(x: number, y: number): number;
+
+  /**
+   * a string variable
+   */
+  aLongString: string;
+
+  /**
+   * a property function with x as string parameter
+   *
+   * @param x - The first input number
+   *
+   */
+  propertyFn: (x: string) => void;
+
+  aRecursiveTest: Statistics;
 }
