@@ -30,3 +30,7 @@ TypeScript AST Explorer: https://ts-ast-viewer.com/#
 TypeScript Compiler Notes: https://github.com/microsoft/TypeScript-Compiler-Notes
 
 TypeScript Deep Dive: https://basarat.gitbook.io/typescript/
+
+Node and Symbol: https://stackoverflow.com/questions/59476836/difference-between-symbol-and-node-in-typescript-compiler-api
+
+Terms Explaination: https://github.com/microsoft/TypeScript-Compiler-Notes/blob/main/GLOSSARY.md

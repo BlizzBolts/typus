@@ -3,8 +3,9 @@ import { serializeSymbol } from "../utils/doc";
 import { Doc } from "./doc";
 
 export const defaultCompilerOptions = {
-  target: ts.ScriptTarget.ES5,
+  jsx: ts.JsxEmit.React,
   module: ts.ModuleKind.CommonJS,
+  target: ts.ScriptTarget.Latest,
 };
 
 export class Parser {
