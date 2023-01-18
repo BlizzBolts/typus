@@ -6,10 +6,10 @@ export interface SerialziedDoc {
   type?: string;
   tags?: { name: string; text: string }[];
   required?: boolean;
-  members?: Doc[];
-  parameters?: Doc[];
-  children?: Doc[];
-  symbolType?: ts.Type;
+  members?: SerialziedDoc[];
+  parameters?: SerialziedDoc[];
+  children?: SerialziedDoc[];
+  symbol?: ts.Symbol;
 }
 export class Doc {
   name?: string;
@@ -20,9 +20,9 @@ export class Doc {
   members?: Doc[];
   parameters?: Doc[];
   children?: Doc[];
-  // symbolType?: ts.Type;
+  symbol?: ts.Symbol;
 
-  constructor(param: SerialziedDoc = {}) {
+  constructor(param: Doc = {} as Doc) {
     this.name = param.name || "";
     this.documentation = param.documentation || "";
     this.type = param.type || "";
@@ -31,20 +31,19 @@ export class Doc {
     this.members = param.members || [];
     this.parameters = param.parameters || [];
     this.children = param.children || [];
-    // this.symbolType = param.symbolType || (null as unknown as ts.Type);
+    this.symbol = param.symbol || (null as unknown as ts.Symbol);
   }
 
-  serialize(): SerialziedDoc {
+  static serialize = (curr: Doc): SerialziedDoc => {
     return {
-      name: this.name,
-      documentation: this.documentation,
-      type: this.type,
-      tags: this.tags,
-      required: this.required,
-      members: this.members,
-      parameters: this.parameters,
-      children: this.children,
-      // symbolType: this.symbolType,
+      name: curr.name,
+      documentation: curr.documentation,
+      type: curr.type,
+      tags: curr.tags,
+      required: curr.required,
+      members: curr.members?.map(Doc.serialize),
+      parameters: curr.parameters?.map(Doc.serialize),
+      children: curr.children?.map(Doc.serialize),
     };
-  }
+  };
 }

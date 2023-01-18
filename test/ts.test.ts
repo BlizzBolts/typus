@@ -1,7 +1,7 @@
 import { it, expect, suite } from "vitest";
 import path from "path";
 import ts from "typescript";
-import { serializeSymbol } from "../src/utils/doc";
+import { generateDoc } from "../src/utils/doc";
 
 const rawTsSampleFilePath = path.resolve(__dirname, "./manifest/raw-ts.ts");
 
@@ -45,7 +45,7 @@ suite("ts test", () => {
         sourceFile.forEachChild((o) => {
           if (ts.isInterfaceDeclaration(o)) {
             const type = typeChecker.getTypeAtLocation(o.name);
-            mapper.set(type, serializeSymbol(type.getSymbol()!, typeChecker));
+            mapper.set(type, generateDoc(type.getSymbol()!, typeChecker));
           }
 
           if (ts.isFunctionDeclaration(o)) {

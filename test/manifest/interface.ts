@@ -26,5 +26,5 @@ export interface Statistics {
    */
   propertyFn: (x: string) => void;
 
-  // aRecursiveTest: Statistics;
+  aRecursiveTest: Statistics;
 }

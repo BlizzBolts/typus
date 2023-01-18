@@ -1,6 +1,7 @@
 import { it, expect, suite, beforeEach, afterEach } from "vitest";
 import path from "path";
 import { Parser } from "../src/core/parser";
+import { Doc } from "../src/core/doc";
 
 let parser: Parser = new Parser();
 
@@ -8,8 +9,7 @@ suite("individual parse", () => {
   it("should parse interface", () => {
     parser.setup(path.resolve(__dirname, "./manifest/interface.ts"));
     const docCache = parser.parse();
-    console.log("done");
-    // expect(docCache).toMatchSnapshot();
+    expect(Doc.serialize(docCache)).toMatchSnapshot();
   });
 
   it("should parse interface with external deps", () => {});

@@ -1,0 +1,134 @@
+// Vitest Snapshot v1
+
+exports[`individual parse > should parse interface 1`] = `
+{
+  "children": [
+    {
+      "children": [
+        {
+          "children": [],
+          "documentation": "Returns the average of two numbers.",
+          "members": [],
+          "name": "getAverage",
+          "parameters": [
+            {
+              "children": [],
+              "documentation": "- The first input number",
+              "members": [],
+              "name": "x",
+              "parameters": [],
+              "required": false,
+              "tags": [
+                {
+                  "name": "param",
+                  "text": "x - The first input number",
+                },
+              ],
+              "type": "number",
+            },
+            {
+              "children": [],
+              "documentation": "- The second input number",
+              "members": [],
+              "name": "y",
+              "parameters": [],
+              "required": false,
+              "tags": [
+                {
+                  "name": "param",
+                  "text": "y - The second input number",
+                },
+              ],
+              "type": "number",
+            },
+          ],
+          "required": false,
+          "tags": [
+            {
+              "name": "remarks",
+              "text": "This method is part of the {@link core-library#Statistics Statistics subsystem}.",
+            },
+            {
+              "name": "param",
+              "text": "x - The first input number",
+            },
+            {
+              "name": "param",
+              "text": "y - The second input number",
+            },
+            {
+              "name": "returns",
+              "text": "The arithmetic mean of \`x\` and \`y\`",
+            },
+            {
+              "name": "beta",
+              "text": "",
+            },
+          ],
+          "type": "(x: number, y: number) => number",
+        },
+        {
+          "children": [],
+          "documentation": "a string variable",
+          "members": [],
+          "name": "aLongString",
+          "parameters": [],
+          "required": false,
+          "tags": [],
+          "type": "string",
+        },
+        {
+          "children": [],
+          "documentation": "a property function with x as string parameter",
+          "members": [],
+          "name": "propertyFn",
+          "parameters": [
+            {
+              "children": [],
+              "documentation": "",
+              "members": [],
+              "name": "x",
+              "parameters": [],
+              "required": false,
+              "tags": [],
+              "type": "string",
+            },
+          ],
+          "required": false,
+          "tags": [
+            {
+              "name": "param",
+              "text": "x - The first input number",
+            },
+          ],
+          "type": "(x: string) => void",
+        },
+        {
+          "children": [],
+          "documentation": "",
+          "members": [],
+          "name": "aRecursiveTest",
+          "parameters": [],
+          "required": false,
+          "tags": [],
+          "type": "Statistics",
+        },
+      ],
+      "documentation": "",
+      "members": [],
+      "name": "Statistics",
+      "parameters": [],
+      "required": false,
+      "tags": [],
+      "type": "any",
+    },
+  ],
+  "documentation": "",
+  "members": [],
+  "name": "root",
+  "parameters": [],
+  "required": false,
+  "tags": [],
+  "type": "",
+}
+`;

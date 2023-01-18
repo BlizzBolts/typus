@@ -1,5 +1,5 @@
 import ts from "typescript";
-import { serializeSymbol } from "../utils/doc";
+import { generateDoc } from "../utils/doc";
 import { Doc } from "./doc";
 
 export const defaultCompilerOptions = {
@@ -24,6 +24,14 @@ export class Parser {
     }
   }
 
+  getTypeChecker() {
+    return this.typeChecker;
+  }
+
+  getProgram() {
+    return this.program;
+  }
+
   setup(
     filePaths: string | string[],
     compilerOptions: Partial<ts.CompilerOptions> = defaultCompilerOptions
@@ -44,7 +52,9 @@ export class Parser {
       return !o.isDeclarationFile;
     });
 
-    const rootDoc = new Doc();
+    const rootDoc = new Doc({
+      name: "root",
+    });
 
     validSourceFiles.forEach((o: ts.SourceFile) => {
       o.forEachChild((p: ts.Node) => {
@@ -57,9 +67,8 @@ export class Parser {
 
   parseInterfaceDeclaration(node: ts.InterfaceDeclaration, parent: Doc) {
     const type = this.typeChecker.getTypeAtLocation(node.name);
-    const doc = serializeSymbol(type.getSymbol()!, this.typeChecker);
+    const doc = generateDoc(node, type, this.typeChecker);
     parent.children?.push(doc);
-
     if (Array.isArray(node.members)) {
       node.members.forEach((memberNode) => {
         this.traverse(memberNode, doc);
@@ -68,8 +77,8 @@ export class Parser {
   }
 
   parseMethodSignature(node: ts.MethodSignature, parent: Doc) {
-    const symbol = this.typeChecker.getSymbolAtLocation(node.name!);
-    const doc = serializeSymbol(symbol!, this.typeChecker);
+    const type = this.typeChecker.getTypeAtLocation(node);
+    const doc = generateDoc(node, type, this.typeChecker);
     parent.children?.push(doc);
 
     if (Array.isArray(node.parameters)) {
@@ -78,14 +87,14 @@ export class Parser {
   }
 
   parseParameter = (node: ts.ParameterDeclaration, parent: Doc) => {
-    const symbol = this.typeChecker.getSymbolAtLocation(node.name!);
-    const doc = serializeSymbol(symbol!, this.typeChecker);
+    const type = this.typeChecker.getTypeAtLocation(node);
+    const doc = generateDoc(node.name, type, this.typeChecker);
     parent.parameters?.push(doc);
   };
 
   parsePropertySignature = (node: ts.PropertySignature, parent: Doc) => {
-    const symbol = this.typeChecker.getSymbolAtLocation(node.name!);
-    const doc = serializeSymbol(symbol!, this.typeChecker);
+    const type = this.typeChecker.getTypeAtLocation(node.name!);
+    const doc = generateDoc(node.name, type, this.typeChecker);
     parent.children?.push(doc);
 
     if (node.type && ts.isFunctionTypeNode(node.type)) {
@@ -103,7 +112,7 @@ export class Parser {
 
   // parseFunction(node: ts.FunctionDeclaration, parent: Doc) {
   //   const fnType = this.typeChecker.getTypeAtLocation(node);
-  //   const Doc = serializeSymbol(fnType.getSymbol()!, this.typeChecker);
+  //   const Doc = generateDoc(node, fnType.getSymbol()!, this.typeChecker);
   //   parent.children?.push(Doc);
   //   this.cache.set(fnType, Doc);
 
@@ -119,11 +128,14 @@ export class Parser {
   //     parent.members?.push(this.cache.get(memberType)!);
   //   } else {
   //     const symbol = this.typeChecker.getSymbolAtLocation(node.name!);
-  //     parent.members?.push(serializeSymbol(symbol!, this.typeChecker));
+  //     parent.members?.push(generateDoc(node, symbol!, this.typeChecker));
   //   }
   // };
 
   traverse(node: ts.Node, parent: Doc) {
+    // if (this.cache.has(this.typeChecker.getTypeAtLocation(node))) {
+    // }
+
     if (ts.isInterfaceDeclaration(node)) {
       console.log("isInterfaceDeclaration!");
       this.parseInterfaceDeclaration(node, parent);
