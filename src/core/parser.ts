@@ -24,6 +24,13 @@ export class Parser {
     }
   }
 
+  static of(
+    filePaths?: string | string[],
+    compilerOptions: Partial<ts.CompilerOptions> = defaultCompilerOptions
+  ) {
+    return new Parser(filePaths, compilerOptions);
+  }
+
   getTypeChecker() {
     return this.typeChecker;
   }
@@ -35,7 +42,7 @@ export class Parser {
   setup(
     filePaths: string | string[],
     compilerOptions: Partial<ts.CompilerOptions> = defaultCompilerOptions
-  ) {
+  ): this {
     this.compilerOptions = Object.assign(
       defaultCompilerOptions,
       compilerOptions
@@ -45,6 +52,8 @@ export class Parser {
     this.typeChecker = this.program.getTypeChecker();
 
     this.cache.clear();
+
+    return this;
   }
 
   parse() {
@@ -74,6 +83,12 @@ export class Parser {
         this.traverse(memberNode, doc);
       });
     }
+  }
+
+  parseTypeAliasDeclaration(node: ts.TypeAliasDeclaration, parent: Doc) {
+    const type = this.typeChecker.getTypeAtLocation(node.name);
+    const doc = generateDoc(node, type, this.typeChecker);
+    console.log(doc);
   }
 
   parseMethodSignature(node: ts.MethodSignature, parent: Doc) {
@@ -162,6 +177,7 @@ export class Parser {
 
     // if (ts.isVariableDeclaration(node)) {
     //   console.log("isVariableDeclaration!");
+    //   this.parseIndexSignatureDeclaration(node, parent)
     //   return;
     // }
 
@@ -175,10 +191,13 @@ export class Parser {
     //   console.log("isClassDeclaration");
     //   return;
     // }
-    // if (ts.isTypeAliasDeclaration(node)) {
-    //   console.log("isTypeAliasDeclaration");
-    //   return;
-    // }
+
+    if (ts.isTypeAliasDeclaration(node)) {
+      console.log("isTypeAliasDeclaration");
+      this.parseTypeAliasDeclaration(node, parent);
+      return;
+    }
+
     // if (ts.isEnumDeclaration(node)) {
     //   console.log("isEnumDeclaration");
     //   return;
