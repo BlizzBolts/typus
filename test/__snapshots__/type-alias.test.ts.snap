@@ -1,0 +1,14 @@
+// Vitest Snapshot v1
+
+exports[`type alias > should parse type alias string 1`] = `
+{
+  "children": [],
+  "documentation": "",
+  "members": [],
+  "name": "root",
+  "parameters": [],
+  "required": false,
+  "tags": [],
+  "type": "",
+}
+`;
