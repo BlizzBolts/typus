@@ -7,6 +7,7 @@
 Typus is a complete TypeScript type parser.
 
 ## RoadMap
+???
 
 ## Inspirations
 
@@ -34,3 +35,4 @@ TypeScript Deep Dive: https://basarat.gitbook.io/typescript/
 Node and Symbol: https://stackoverflow.com/questions/59476836/difference-between-symbol-and-node-in-typescript-compiler-api
 
 Terms Explaination: https://github.com/microsoft/TypeScript-Compiler-Notes/blob/main/GLOSSARY.md
+Ts Notes: https://github.com/microsoft/TypeScript-Compiler-Notes
