@@ -51,3 +51,30 @@ export const generateDoc = (
     // required: symbol?.["questionToken"],
   });
 };
+
+export const generateDocByInternalSymbol = (
+  node: ts.TypeAliasDeclaration,
+  type: ts.Type,
+  checker: ts.TypeChecker
+): Doc => {
+  // @ts-ignore
+  const symbol = node.symbol;
+  return new Doc({
+    name: symbol?.getName(),
+    documentation: ts.displayPartsToString(
+      symbol?.getDocumentationComment(checker)
+    ),
+    type: checker.typeToString(type),
+    tags: symbol?.getJsDocTags(checker).map((o) => {
+      return {
+        name: o.name,
+        text: ts.displayPartsToString(o.text),
+      };
+    }),
+    children: [],
+    members: [],
+    parameters: [],
+    symbol: checker.getTypeAtLocation(node) as unknown as ts.Symbol,
+    // required: symbol?.["questionToken"],
+  });
+};

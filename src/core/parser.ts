@@ -1,5 +1,5 @@
 import ts from "typescript";
-import { generateDoc } from "../utils/doc";
+import { generateDoc, generateDocByInternalSymbol } from "../utils/doc";
 import { Doc } from "./doc";
 
 export const defaultCompilerOptions = {
@@ -87,8 +87,8 @@ export class Parser {
 
   parseTypeAliasDeclaration(node: ts.TypeAliasDeclaration, parent: Doc) {
     const type = this.typeChecker.getTypeAtLocation(node.name);
-    const doc = generateDoc(node, type, this.typeChecker);
-    console.log(doc);
+    const doc = generateDocByInternalSymbol(node, type, this.typeChecker);
+    parent.children?.push(doc);
   }
 
   parseMethodSignature(node: ts.MethodSignature, parent: Doc) {
