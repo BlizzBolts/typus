@@ -1,0 +1,21 @@
+name: "UnitTest"
+
+on:
+  pull_request:
+    branches: ["main", "dev"]
+
+jobs:
+  unit-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: "Checkout Repository"
+        uses: actions/checkout@v3
+      - name: "Run Unit Test"
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18.x"
+          cache: "npm"
+      - run: npm i pnpm -g
+      - run: pnpm install
+      - run: pnpm test
