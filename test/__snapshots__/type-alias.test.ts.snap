@@ -1,0 +1,369 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`type alias > should parse type alias a function 1`] = `
+{
+  "children": [
+    {
+      "children": [],
+      "documentation": "",
+      "members": [],
+      "name": "VoidFunction",
+      "parameters": [],
+      "required": false,
+      "tags": [],
+      "type": "VoidFunction",
+    },
+    {
+      "children": [],
+      "documentation": "",
+      "members": [],
+      "name": "TypeFunction",
+      "parameters": [],
+      "required": false,
+      "tags": [
+        {
+          "name": "description",
+          "text": "this is a new function type",
+        },
+      ],
+      "type": "VoidFunction",
+    },
+  ],
+  "documentation": "",
+  "members": [],
+  "name": "root",
+  "parameters": [],
+  "required": false,
+  "tags": [],
+  "type": "",
+}
+`;
+
+exports[`type alias > should parse type alias abstract class 1`] = `
+{
+  "children": [
+    {
+      "children": [],
+      "documentation": "",
+      "members": [],
+      "name": "TypeAbstractClass",
+      "parameters": [],
+      "required": false,
+      "tags": [
+        {
+          "name": "description",
+          "text": "this is a new abstract class A type",
+        },
+      ],
+      "type": "A",
+    },
+  ],
+  "documentation": "",
+  "members": [],
+  "name": "root",
+  "parameters": [],
+  "required": false,
+  "tags": [],
+  "type": "",
+}
+`;
+
+exports[`type alias > should parse type alias any 1`] = `
+{
+  "children": [
+    {
+      "children": [],
+      "documentation": "",
+      "members": [],
+      "name": "TypeAny",
+      "parameters": [],
+      "required": false,
+      "tags": [
+        {
+          "name": "description",
+          "text": "this is a new any type",
+        },
+      ],
+      "type": "any",
+    },
+  ],
+  "documentation": "",
+  "members": [],
+  "name": "root",
+  "parameters": [],
+  "required": false,
+  "tags": [],
+  "type": "",
+}
+`;
+
+exports[`type alias > should parse type alias array of string 1`] = `
+{
+  "children": [
+    {
+      "children": [],
+      "documentation": "",
+      "members": [],
+      "name": "ArrayOfString",
+      "parameters": [],
+      "required": false,
+      "tags": [
+        {
+          "name": "description",
+          "text": "this is a new array of string type",
+        },
+      ],
+      "type": "ArrayOfString",
+    },
+  ],
+  "documentation": "",
+  "members": [],
+  "name": "root",
+  "parameters": [],
+  "required": false,
+  "tags": [],
+  "type": "",
+}
+`;
+
+exports[`type alias > should parse type alias boolean 1`] = `
+{
+  "children": [
+    {
+      "children": [],
+      "documentation": "",
+      "members": [],
+      "name": "TypeBoolean",
+      "parameters": [],
+      "required": false,
+      "tags": [
+        {
+          "name": "description",
+          "text": "this is a new boolean type",
+        },
+      ],
+      "type": "boolean",
+    },
+  ],
+  "documentation": "",
+  "members": [],
+  "name": "root",
+  "parameters": [],
+  "required": false,
+  "tags": [],
+  "type": "",
+}
+`;
+
+exports[`type alias > should parse type alias class 1`] = `
+{
+  "children": [
+    {
+      "children": [],
+      "documentation": "",
+      "members": [],
+      "name": "TypeClass",
+      "parameters": [],
+      "required": false,
+      "tags": [
+        {
+          "name": "description",
+          "text": "this is a new class A type",
+        },
+      ],
+      "type": "A",
+    },
+  ],
+  "documentation": "",
+  "members": [],
+  "name": "root",
+  "parameters": [],
+  "required": false,
+  "tags": [],
+  "type": "",
+}
+`;
+
+exports[`type alias > should parse type alias interface 1`] = `
+{
+  "children": [
+    {
+      "children": [],
+      "documentation": "",
+      "members": [],
+      "name": "A",
+      "parameters": [],
+      "required": false,
+      "tags": [],
+      "type": "any",
+    },
+    {
+      "children": [],
+      "documentation": "",
+      "members": [],
+      "name": "TypeInterface",
+      "parameters": [],
+      "required": false,
+      "tags": [
+        {
+          "name": "description",
+          "text": "this is a new interface A type",
+        },
+      ],
+      "type": "A",
+    },
+  ],
+  "documentation": "",
+  "members": [],
+  "name": "root",
+  "parameters": [],
+  "required": false,
+  "tags": [],
+  "type": "",
+}
+`;
+
+exports[`type alias > should parse type alias null 1`] = `
+{
+  "children": [
+    {
+      "children": [],
+      "documentation": "",
+      "members": [],
+      "name": "TypeNull",
+      "parameters": [],
+      "required": false,
+      "tags": [
+        {
+          "name": "description",
+          "text": "this is a new null type",
+        },
+      ],
+      "type": "null",
+    },
+  ],
+  "documentation": "",
+  "members": [],
+  "name": "root",
+  "parameters": [],
+  "required": false,
+  "tags": [],
+  "type": "",
+}
+`;
+
+exports[`type alias > should parse type alias number 1`] = `
+{
+  "children": [
+    {
+      "children": [],
+      "documentation": "",
+      "members": [],
+      "name": "TypeNumber",
+      "parameters": [],
+      "required": false,
+      "tags": [
+        {
+          "name": "description",
+          "text": "this is a new number type",
+        },
+      ],
+      "type": "number",
+    },
+  ],
+  "documentation": "",
+  "members": [],
+  "name": "root",
+  "parameters": [],
+  "required": false,
+  "tags": [],
+  "type": "",
+}
+`;
+
+exports[`type alias > should parse type alias string 1`] = `
+{
+  "children": [
+    {
+      "children": [],
+      "documentation": "",
+      "members": [],
+      "name": "TypeString",
+      "parameters": [],
+      "required": false,
+      "tags": [
+        {
+          "name": "description",
+          "text": "this is a new string type",
+        },
+      ],
+      "type": "string",
+    },
+  ],
+  "documentation": "",
+  "members": [],
+  "name": "root",
+  "parameters": [],
+  "required": false,
+  "tags": [],
+  "type": "",
+}
+`;
+
+exports[`type alias > should parse type alias undefined 1`] = `
+{
+  "children": [
+    {
+      "children": [],
+      "documentation": "",
+      "members": [],
+      "name": "TypeUndefined",
+      "parameters": [],
+      "required": false,
+      "tags": [
+        {
+          "name": "description",
+          "text": "this is a new undefined type",
+        },
+      ],
+      "type": "undefined",
+    },
+  ],
+  "documentation": "",
+  "members": [],
+  "name": "root",
+  "parameters": [],
+  "required": false,
+  "tags": [],
+  "type": "",
+}
+`;
+
+exports[`type alias > should parse type alias unknown 1`] = `
+{
+  "children": [
+    {
+      "children": [],
+      "documentation": "",
+      "members": [],
+      "name": "TypeUnknown",
+      "parameters": [],
+      "required": false,
+      "tags": [
+        {
+          "name": "description",
+          "text": "this is a new unknown type",
+        },
+      ],
+      "type": "unknown",
+    },
+  ],
+  "documentation": "",
+  "members": [],
+  "name": "root",
+  "parameters": [],
+  "required": false,
+  "tags": [],
+  "type": "",
+}
+`;
