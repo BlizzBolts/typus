@@ -1,0 +1,106 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`interface > should parse type complex interface 1`] = `
+{
+  "/Users/ming/projj/github.com/BlizzBolts/typus/test/manifest/complex-interface.ts": {
+    "docs": [
+      {
+        "children": [
+          {
+            "children": [],
+            "documentation": "",
+            "members": [],
+            "name": "content",
+            "parameters": [],
+            "required": false,
+            "tags": [],
+            "type": "string",
+          },
+        ],
+        "documentation": "",
+        "members": [],
+        "name": "LogPayload",
+        "parameters": [],
+        "required": false,
+        "tags": [],
+        "type": "any",
+      },
+      {
+        "children": [
+          {
+            "children": [],
+            "documentation": "",
+            "members": [],
+            "name": "log",
+            "parameters": [
+              {
+                "children": [],
+                "documentation": "",
+                "members": [],
+                "name": "payload",
+                "parameters": [],
+                "required": false,
+                "tags": [],
+                "type": "LogPayload",
+              },
+            ],
+            "required": false,
+            "tags": [],
+            "type": "(payload: LogPayload) => void",
+          },
+        ],
+        "documentation": "",
+        "members": [],
+        "name": "ActonMeta",
+        "parameters": [],
+        "required": false,
+        "tags": [],
+        "type": "any",
+      },
+      {
+        "children": [
+          {
+            "children": [],
+            "documentation": "",
+            "members": [],
+            "name": "meta",
+            "parameters": [],
+            "required": false,
+            "tags": [],
+            "type": "ActonMeta",
+          },
+        ],
+        "documentation": "",
+        "members": [],
+        "name": "Action",
+        "parameters": [],
+        "required": false,
+        "tags": [],
+        "type": "any",
+      },
+      {
+        "children": [
+          {
+            "children": [],
+            "documentation": "",
+            "members": [],
+            "name": "Action",
+            "parameters": [],
+            "required": false,
+            "tags": [],
+            "type": "Action",
+          },
+        ],
+        "documentation": "",
+        "members": [],
+        "name": "ComplexInterface",
+        "parameters": [],
+        "required": false,
+        "tags": [],
+        "type": "any",
+      },
+    ],
+    "filePath": "/Users/ming/projj/github.com/BlizzBolts/typus/test/manifest/complex-interface.ts",
+  },
+}
+`;

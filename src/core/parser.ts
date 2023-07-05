@@ -1,6 +1,7 @@
 import ts from "typescript";
 import { generateDoc, generateDocByInternalSymbol } from "../utils/doc";
 import { Doc } from "./doc";
+import { FilePath, SourceFile } from "./sourceFile";
 
 export const defaultCompilerOptions = {
   jsx: ts.JsxEmit.React,
@@ -13,7 +14,7 @@ export class Parser {
   private filePaths: string[] = [];
   private program!: ts.Program;
   private typeChecker!: ts.TypeChecker;
-  private cache: Map<ts.Type, Doc> = new Map<ts.Type, Doc>();
+  private cache: Map<FilePath, SourceFile> = new Map<FilePath, SourceFile>();
 
   constructor(
     filePaths?: string | string[],
@@ -61,61 +62,93 @@ export class Parser {
       return !o.isDeclarationFile;
     });
 
-    const rootDoc = new Doc({
-      name: "root",
-    });
-
     validSourceFiles.forEach((o: ts.SourceFile) => {
+      const sourceFile = new SourceFile({ filePath: o.fileName });
+      this.cache.set(o.fileName, sourceFile);
       o.forEachChild((p: ts.Node) => {
-        this.traverse(p, rootDoc);
+        const doc = this.traverse(p, sourceFile);
+        if (doc) {
+          sourceFile.addDoc(doc);
+        }
       });
     });
 
-    return rootDoc;
+    return this;
   }
 
-  parseInterfaceDeclaration(node: ts.InterfaceDeclaration, parent: Doc) {
+  parseInterfaceDeclaration(
+    node: ts.InterfaceDeclaration,
+    sourceFile: SourceFile
+  ) {
     const type = this.typeChecker.getTypeAtLocation(node.name);
     const doc = generateDoc(node, type, this.typeChecker);
-    parent.children?.push(doc);
+    doc.setRoot(sourceFile);
+
     if (Array.isArray(node.members)) {
       node.members.forEach((memberNode) => {
-        this.traverse(memberNode, doc);
+        const childDoc = this.traverse(memberNode, sourceFile);
+        if (childDoc) {
+          childDoc.setRoot(sourceFile);
+          doc.children?.push(childDoc);
+        }
       });
     }
+    return doc;
   }
 
-  parseTypeAliasDeclaration(node: ts.TypeAliasDeclaration, parent: Doc) {
+  parseTypeAliasDeclaration(
+    node: ts.TypeAliasDeclaration,
+    sourceFile: SourceFile
+  ): Doc {
     const type = this.typeChecker.getTypeAtLocation(node.name);
     const doc = generateDocByInternalSymbol(node, type, this.typeChecker);
-    parent.children?.push(doc);
+    doc.setRoot(sourceFile);
+    return doc;
   }
 
-  parseMethodSignature(node: ts.MethodSignature, parent: Doc) {
+  parseMethodSignature(node: ts.MethodSignature, sourceFile: SourceFile): Doc {
     const type = this.typeChecker.getTypeAtLocation(node);
     const doc = generateDoc(node, type, this.typeChecker);
-    parent.children?.push(doc);
+    doc.setRoot(sourceFile);
 
     if (Array.isArray(node.parameters)) {
-      node.parameters.forEach((parameter) => this.traverse(parameter, doc));
+      node.parameters.forEach((parameter) => {
+        const parameterDoc = this.traverse(parameter, sourceFile);
+        if (parameterDoc) {
+          parameterDoc.setRoot(sourceFile);
+          doc.parameters?.push(parameterDoc);
+        }
+      });
     }
+    return doc;
   }
 
-  parseParameter = (node: ts.ParameterDeclaration, parent: Doc) => {
+  parseParameter = (
+    node: ts.ParameterDeclaration,
+    sourceFile: SourceFile
+  ): Doc => {
     const type = this.typeChecker.getTypeAtLocation(node);
     const doc = generateDoc(node.name, type, this.typeChecker);
-    parent.parameters?.push(doc);
+    doc.setRoot(sourceFile);
+    return doc;
   };
 
-  parsePropertySignature = (node: ts.PropertySignature, parent: Doc) => {
+  parsePropertySignature = (
+    node: ts.PropertySignature,
+    sourceFile: SourceFile
+  ): Doc => {
     const type = this.typeChecker.getTypeAtLocation(node.name!);
     const doc = generateDoc(node.name, type, this.typeChecker);
-    parent.children?.push(doc);
+    doc.setRoot(sourceFile);
 
     if (node.type && ts.isFunctionTypeNode(node.type)) {
-      node.type.parameters.forEach((parameter) =>
-        this.traverse(parameter, doc)
-      );
+      node.type.parameters.forEach((parameter) => {
+        const parameterDoc = this.traverse(parameter, sourceFile);
+        if (parameterDoc) {
+          parameterDoc.setRoot(sourceFile);
+          doc.parameters?.push(parameterDoc);
+        }
+      });
     }
 
     // if (node.type && ts.isTypeReferenceNode(node.type)) {
@@ -123,6 +156,7 @@ export class Parser {
     //     this.traverse(parameter, doc)
     //   );
     // }
+    return doc;
   };
 
   // parseFunction(node: ts.FunctionDeclaration, parent: Doc) {
@@ -147,32 +181,28 @@ export class Parser {
   //   }
   // };
 
-  traverse(node: ts.Node, parent: Doc) {
+  traverse(node: ts.Node, sourceFile: SourceFile): Doc | undefined {
     // if (this.cache.has(this.typeChecker.getTypeAtLocation(node))) {
     // }
 
     if (ts.isInterfaceDeclaration(node)) {
       console.log("isInterfaceDeclaration!");
-      this.parseInterfaceDeclaration(node, parent);
-      return;
+      return this.parseInterfaceDeclaration(node, sourceFile);
     }
 
     if (ts.isMethodSignature(node)) {
       console.log("isMethodSignature!");
-      this.parseMethodSignature(node, parent);
-      return;
+      return this.parseMethodSignature(node, sourceFile);
     }
 
     if (ts.isPropertySignature(node)) {
       console.log("isPropertySignature!");
-      this.parsePropertySignature(node, parent);
-      return;
+      return this.parsePropertySignature(node, sourceFile);
     }
 
     if (ts.isParameter(node)) {
       console.log("isParameter!");
-      this.parseParameter(node, parent);
-      return;
+      return this.parseParameter(node, sourceFile);
     }
 
     // if (ts.isVariableDeclaration(node)) {
@@ -194,8 +224,7 @@ export class Parser {
 
     if (ts.isTypeAliasDeclaration(node)) {
       console.log("isTypeAliasDeclaration");
-      this.parseTypeAliasDeclaration(node, parent);
-      return;
+      return this.parseTypeAliasDeclaration(node, sourceFile);
     }
 
     // if (ts.isEnumDeclaration(node)) {
@@ -212,5 +241,15 @@ export class Parser {
     //   this.parseInterfaceMember(node, parent);
     //   return;
     // }
+  }
+
+  serialize() {
+    const cacheObject = Object.fromEntries(this.cache.entries());
+    return Object.keys(cacheObject).reduce((memo, key) => {
+      return {
+        ...memo,
+        [key]: SourceFile.serialize(cacheObject[key]),
+      };
+    }, {});
   }
 }
