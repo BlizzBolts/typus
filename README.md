@@ -6,9 +6,17 @@
 
 Typus is a complete TypeScript type parser.
 
+Typus accepts the input from source code(.ts), declarations(.d.ts) and TsDoc, and outputing a well formatted objects aka Document.
+
+## Goal
+
+Typus should be a fundamental tooling under TypeScript anaylize based tools.
 
 ## RoadMap
-???
+* list most use cases as possible
+* fully tests for all the use cases listed
+* ...
+
 
 ## Inspirations
 
