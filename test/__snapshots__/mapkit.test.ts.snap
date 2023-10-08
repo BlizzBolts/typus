@@ -1,0 +1,171 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`parse mapkit > should parse mapkit 1`] = `
+{
+  "children": [
+    {
+      "children": [],
+      "documentation": "",
+      "members": [
+        {
+          "children": [],
+          "documentation": "上报日志",
+          "members": [],
+          "name": "log",
+          "parameters": [
+            {
+              "children": [],
+              "documentation": "",
+              "members": [],
+              "name": "payload",
+              "parameters": [],
+              "required": false,
+              "tags": [],
+              "type": "{ content: string; v: number; }",
+            },
+          ],
+          "required": false,
+          "tags": [
+            {
+              "name": "date",
+              "text": "7/4/2023 - 4:43:53 PM",
+            },
+            {
+              "name": "type",
+              "text": "{(payload: { content: string, v: number }) => Promise<void>}",
+            },
+          ],
+          "type": "(payload: { content: string; v: number; }) => Promise<void>",
+        },
+      ],
+      "name": "ActionMeta",
+      "parameters": [],
+      "required": false,
+      "tags": [],
+      "type": "any",
+    },
+    {
+      "children": [],
+      "documentation": "",
+      "members": [
+        {
+          "children": [],
+          "documentation": "",
+          "members": [
+            {
+              "children": [],
+              "documentation": "上报日志",
+              "members": [],
+              "name": "log",
+              "parameters": [
+                {
+                  "children": [],
+                  "documentation": "",
+                  "members": [],
+                  "name": "payload",
+                  "parameters": [],
+                  "required": false,
+                  "tags": [],
+                  "type": "{ content: string; v: number; }",
+                },
+              ],
+              "required": false,
+              "tags": [
+                {
+                  "name": "date",
+                  "text": "7/4/2023 - 4:43:53 PM",
+                },
+                {
+                  "name": "type",
+                  "text": "{(payload: { content: string, v: number }) => Promise<void>}",
+                },
+              ],
+              "type": "(payload: { content: string; v: number; }) => Promise<void>",
+            },
+          ],
+          "name": "ActionMeta",
+          "parameters": [],
+          "required": false,
+          "tags": [],
+          "type": "any",
+        },
+      ],
+      "name": "Action",
+      "parameters": [],
+      "required": false,
+      "tags": [],
+      "type": "any",
+    },
+    {
+      "children": [],
+      "documentation": "",
+      "members": [
+        {
+          "children": [],
+          "documentation": "",
+          "members": [
+            {
+              "children": [],
+              "documentation": "",
+              "members": [
+                {
+                  "children": [],
+                  "documentation": "上报日志",
+                  "members": [],
+                  "name": "log",
+                  "parameters": [
+                    {
+                      "children": [],
+                      "documentation": "",
+                      "members": [],
+                      "name": "payload",
+                      "parameters": [],
+                      "required": false,
+                      "tags": [],
+                      "type": "{ content: string; v: number; }",
+                    },
+                  ],
+                  "required": false,
+                  "tags": [
+                    {
+                      "name": "date",
+                      "text": "7/4/2023 - 4:43:53 PM",
+                    },
+                    {
+                      "name": "type",
+                      "text": "{(payload: { content: string, v: number }) => Promise<void>}",
+                    },
+                  ],
+                  "type": "(payload: { content: string; v: number; }) => Promise<void>",
+                },
+              ],
+              "name": "ActionMeta",
+              "parameters": [],
+              "required": false,
+              "tags": [],
+              "type": "any",
+            },
+          ],
+          "name": "Action",
+          "parameters": [],
+          "required": false,
+          "tags": [],
+          "type": "any",
+        },
+      ],
+      "name": "MapkitType",
+      "parameters": [],
+      "required": false,
+      "tags": [],
+      "type": "any",
+    },
+  ],
+  "documentation": "",
+  "members": [],
+  "name": "root",
+  "parameters": [],
+  "required": false,
+  "tags": [],
+  "type": "",
+}
+`;

@@ -1,14 +1,16 @@
-import { it, expect, suite, beforeEach, afterEach } from "vitest";
+import { it, expect, suite } from "vitest";
 import path from "path";
 import { Parser } from "../src/core/parser";
 import { Doc } from "../src/core/doc";
-
-let parser: Parser = new Parser();
+import { transformModuleGraph2Doc } from "../src/utils/transform";
 
 suite("individual parse", () => {
   it("should parse interface", () => {
-    parser.setup(path.resolve(__dirname, "./manifest/interface.ts"));
-    const docCache = parser.parse();
+    const parser = Parser.of()
+      .setup(path.resolve(__dirname, "./manifest/interface.ts"))
+      .parse();
+
+    const docCache = transformModuleGraph2Doc(parser.getModuleGraph());
     expect(Doc.serialize(docCache)).toMatchSnapshot();
   });
 

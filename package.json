@@ -18,20 +18,21 @@
     "dev": "pnpm run build-fast --watch",
     "build-fast": "tsup src/index.ts --format cjs,esm",
     "build": "pnpm run build-fast --dts-resolve",
-    "test": "vitest index",
+    "test": "vitest type-alias",
     "prepublishOnly": "pnpm run build"
   },
   "devDependencies": {
+    "@egoist/prettier-config": "1.0.0",
     "@types/fs-extra": "^9.0.13",
     "@types/lodash": "^4.14.191",
+    "prettier": "2.8.8",
     "tsup": "7.1.0",
     "typescript": "5.1.6",
-    "vitest": "0.32.2",
-    "prettier": "2.8.8",
-    "@egoist/prettier-config": "1.0.0"
+    "vitest": "0.32.2"
   },
   "dependencies": {
     "fs-extra": "^11.1.0",
+    "lodash": "^4.17.21",
     "ts-morph": "^17.0.1"
   },
   "peerDependencies": {

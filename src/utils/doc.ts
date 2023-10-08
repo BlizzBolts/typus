@@ -1,4 +1,4 @@
-import ts from "typescript";
+import ts, { SymbolDisplayPart } from "typescript";
 import { Doc } from "../core/doc";
 
 // export const getInterfaceDocuments = (
@@ -65,12 +65,14 @@ export const generateDocByInternalSymbol = (
       symbol?.getDocumentationComment(checker)
     ),
     type: checker.typeToString(type),
-    tags: symbol?.getJsDocTags(checker).map((o) => {
-      return {
-        name: o.name,
-        text: ts.displayPartsToString(o.text),
-      };
-    }),
+    tags: symbol
+      ?.getJsDocTags(checker)
+      .map((o: { name: string; text: SymbolDisplayPart[] }) => {
+        return {
+          name: o.name,
+          text: ts.displayPartsToString(o.text),
+        };
+      }),
     children: [],
     members: [],
     parameters: [],

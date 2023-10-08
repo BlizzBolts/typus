@@ -1,6 +1,6 @@
 import ts from "typescript";
-import { generateDoc, generateDocByInternalSymbol } from "../utils/doc";
-import { Doc } from "./doc";
+import { generateModule } from "../core/module/utils";
+import { ModuleGraph, Module } from "./module";
 
 export const defaultCompilerOptions = {
   jsx: ts.JsxEmit.React,
@@ -13,7 +13,7 @@ export class Parser {
   private filePaths: string[] = [];
   private program!: ts.Program;
   private typeChecker!: ts.TypeChecker;
-  private cache: Map<ts.Type, Doc> = new Map<ts.Type, Doc>();
+  private moduleGraph: ModuleGraph = new ModuleGraph();
 
   constructor(
     filePaths?: string | string[],
@@ -39,6 +39,10 @@ export class Parser {
     return this.program;
   }
 
+  getModuleGraph() {
+    return this.moduleGraph;
+  }
+
   setup(
     filePaths: string | string[],
     compilerOptions: Partial<ts.CompilerOptions> = defaultCompilerOptions
@@ -51,72 +55,102 @@ export class Parser {
     this.program = ts.createProgram(this.filePaths, this.compilerOptions);
     this.typeChecker = this.program.getTypeChecker();
 
-    this.cache.clear();
-
     return this;
   }
 
-  parse() {
+  parse(): this {
     const validSourceFiles = this.program.getSourceFiles().filter((o) => {
       return !o.isDeclarationFile;
     });
 
-    const rootDoc = new Doc({
-      name: "root",
-    });
+    const moduleGraphs = validSourceFiles
+      .map((o: ts.SourceFile) => {
+        const result: Module[] = [];
+        o.forEachChild((n: ts.Node): void => {
+          const module = this.traverse(n);
+          if (module) {
+            result.push(module);
+          }
+        });
+        return result;
+      })
+      .filter(Boolean) as ModuleGraph[][];
 
-    validSourceFiles.forEach((o: ts.SourceFile) => {
-      o.forEachChild((p: ts.Node) => {
-        this.traverse(p, rootDoc);
-      });
-    });
-
-    return rootDoc;
+    this.moduleGraph.children = moduleGraphs;
+    return this;
   }
 
-  parseInterfaceDeclaration(node: ts.InterfaceDeclaration, parent: Doc) {
+  parseInterfaceDeclaration(node: ts.InterfaceDeclaration): Module {
     const type = this.typeChecker.getTypeAtLocation(node.name);
-    const doc = generateDoc(node, type, this.typeChecker);
-    parent.children?.push(doc);
-    if (Array.isArray(node.members)) {
-      node.members.forEach((memberNode) => {
-        this.traverse(memberNode, doc);
-      });
+    const cacheModule = this.moduleGraph.getCacheBy(type);
+    if (cacheModule) {
+      return cacheModule;
     }
+    const module = generateModule(node, type, this.typeChecker);
+    this.moduleGraph.setCacheModule(type, module);
+    if (Array.isArray(node.members)) {
+      module.members = node.members
+        .map((memberNode) => {
+          return this.traverse(memberNode);
+        })
+        .filter(Boolean) as ModuleGraph[];
+    }
+    return module;
   }
 
-  parseTypeAliasDeclaration(node: ts.TypeAliasDeclaration, parent: Doc) {
+  parseTypeAliasDeclaration(node: ts.TypeAliasDeclaration): Module {
     const type = this.typeChecker.getTypeAtLocation(node.name);
-    const doc = generateDocByInternalSymbol(node, type, this.typeChecker);
-    parent.children?.push(doc);
+    const cacheModule = this.moduleGraph.getCacheBy(type);
+    if (cacheModule) {
+      return cacheModule;
+    }
+    if (ts.isTypeAliasDeclaration(node)) {
+      console.log(1);
+    }
+    const module = generateModule(node, type, this.typeChecker);
+    this.moduleGraph.setCacheModule(type, module);
+    return module;
   }
 
-  parseMethodSignature(node: ts.MethodSignature, parent: Doc) {
+  parseMethodSignature(node: ts.MethodSignature): Module {
     const type = this.typeChecker.getTypeAtLocation(node);
-    const doc = generateDoc(node, type, this.typeChecker);
-    parent.children?.push(doc);
+    const cacheModule = this.moduleGraph.getCacheBy(type);
+    if (cacheModule) {
+      return cacheModule;
+    }
+    const module = generateModule(node, type, this.typeChecker);
 
     if (Array.isArray(node.parameters)) {
-      node.parameters.forEach((parameter) => this.traverse(parameter, doc));
+      module.parameters = node.parameters
+        .map((parameter) => this.traverse(parameter))
+        .filter(Boolean) as ModuleGraph[];
     }
+    return module;
   }
 
-  parseParameter = (node: ts.ParameterDeclaration, parent: Doc) => {
+  parseParameter = (node: ts.ParameterDeclaration): Module => {
     const type = this.typeChecker.getTypeAtLocation(node);
-    const doc = generateDoc(node.name, type, this.typeChecker);
-    parent.parameters?.push(doc);
+    const cacheModule = this.moduleGraph.getCacheBy(type);
+    if (cacheModule) {
+      return cacheModule;
+    }
+    const module = generateModule(node.name, type, this.typeChecker);
+    return module;
   };
 
-  parsePropertySignature = (node: ts.PropertySignature, parent: Doc) => {
+  parsePropertySignature = (node: ts.PropertySignature) => {
     const type = this.typeChecker.getTypeAtLocation(node.name!);
-    const doc = generateDoc(node.name, type, this.typeChecker);
-    parent.children?.push(doc);
-
-    if (node.type && ts.isFunctionTypeNode(node.type)) {
-      node.type.parameters.forEach((parameter) =>
-        this.traverse(parameter, doc)
-      );
+    const cacheModule = this.moduleGraph.getCacheBy(type);
+    if (cacheModule) {
+      return cacheModule;
     }
+    const module = generateModule(node.name, type, this.typeChecker);
+    if (node.type && ts.isFunctionTypeNode(node.type)) {
+      module.parameters = node.type.parameters
+        .map((parameter) => this.traverse(parameter))
+        .filter(Boolean) as ModuleGraph[];
+    }
+    return module;
 
     // if (node.type && ts.isTypeReferenceNode(node.type)) {
     //   node.type.parameters.forEach((parameter) =>
@@ -127,7 +161,7 @@ export class Parser {
 
   // parseFunction(node: ts.FunctionDeclaration, parent: Doc) {
   //   const fnType = this.typeChecker.getTypeAtLocation(node);
-  //   const Doc = generateDoc(node, fnType.getSymbol()!, this.typeChecker);
+  //   const Doc = generateModule(node, fnType.getSymbol()!, this.typeChecker);
   //   parent.children?.push(Doc);
   //   this.cache.set(fnType, Doc);
 
@@ -143,36 +177,32 @@ export class Parser {
   //     parent.members?.push(this.cache.get(memberType)!);
   //   } else {
   //     const symbol = this.typeChecker.getSymbolAtLocation(node.name!);
-  //     parent.members?.push(generateDoc(node, symbol!, this.typeChecker));
+  //     parent.members?.push(generateModule(node, symbol!, this.typeChecker));
   //   }
   // };
 
-  traverse(node: ts.Node, parent: Doc) {
+  traverse(node: ts.Node): Module | null {
     // if (this.cache.has(this.typeChecker.getTypeAtLocation(node))) {
     // }
 
     if (ts.isInterfaceDeclaration(node)) {
       console.log("isInterfaceDeclaration!");
-      this.parseInterfaceDeclaration(node, parent);
-      return;
+      return this.parseInterfaceDeclaration(node);
     }
 
     if (ts.isMethodSignature(node)) {
       console.log("isMethodSignature!");
-      this.parseMethodSignature(node, parent);
-      return;
+      return this.parseMethodSignature(node);
     }
 
     if (ts.isPropertySignature(node)) {
       console.log("isPropertySignature!");
-      this.parsePropertySignature(node, parent);
-      return;
+      return this.parsePropertySignature(node);
     }
 
     if (ts.isParameter(node)) {
       console.log("isParameter!");
-      this.parseParameter(node, parent);
-      return;
+      return this.parseParameter(node);
     }
 
     // if (ts.isVariableDeclaration(node)) {
@@ -194,8 +224,7 @@ export class Parser {
 
     if (ts.isTypeAliasDeclaration(node)) {
       console.log("isTypeAliasDeclaration");
-      this.parseTypeAliasDeclaration(node, parent);
-      return;
+      return this.parseTypeAliasDeclaration(node);
     }
 
     // if (ts.isEnumDeclaration(node)) {
@@ -212,5 +241,7 @@ export class Parser {
     //   this.parseInterfaceMember(node, parent);
     //   return;
     // }
+
+    return null;
   }
 }

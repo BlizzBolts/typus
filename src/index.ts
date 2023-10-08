@@ -1,11 +1,14 @@
 import ts from "typescript";
 import { defaultCompilerOptions, Parser } from "./core/parser";
-import { Doc } from "./core/doc";
+import { ParseResult } from "./type";
 
 export const parse = (
   filePaths: string | string[],
   compilerOptions: ts.CompilerOptions = defaultCompilerOptions
-): Doc => {
-  const parser = new Parser(filePaths, compilerOptions);
-  return parser.parse();
+): ParseResult => {
+  const parser = new Parser(filePaths, compilerOptions).parse();
+  return {
+    moduleGraph: parser.getModuleGraph(),
+    doc: {},
+  };
 };

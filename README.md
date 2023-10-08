@@ -13,10 +13,10 @@ Typus accepts the input from source code(.ts), declarations(.d.ts) and TsDoc, an
 Typus should be a fundamental tooling under TypeScript anaylize based tools.
 
 ## RoadMap
-* list most use cases as possible
-* fully tests for all the use cases listed
-* ...
 
+- list most use cases as possible
+- fully tests for all the use cases listed
+- ...
 
 ## Inspirations
 
@@ -45,3 +45,5 @@ Node and Symbol: https://stackoverflow.com/questions/59476836/difference-between
 
 Terms Explaination: https://github.com/microsoft/TypeScript-Compiler-Notes/blob/main/GLOSSARY.md
 Ts Notes: https://github.com/microsoft/TypeScript-Compiler-Notes
+
+Tiny compiler https://github.com/microsoft/TypeScript-Compiler-Notes

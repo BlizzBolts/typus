@@ -4,7 +4,9 @@ exports[`individual parse > should parse interface 1`] = `
 {
   "children": [
     {
-      "children": [
+      "children": [],
+      "documentation": "",
+      "members": [
         {
           "children": [],
           "documentation": "Returns the average of two numbers.",
@@ -107,15 +109,13 @@ exports[`individual parse > should parse interface 1`] = `
           "children": [],
           "documentation": "",
           "members": [],
-          "name": "aRecursiveTest",
+          "name": "Statistics",
           "parameters": [],
           "required": false,
           "tags": [],
-          "type": "Statistics",
+          "type": "any",
         },
       ],
-      "documentation": "",
-      "members": [],
       "name": "Statistics",
       "parameters": [],
       "required": false,
